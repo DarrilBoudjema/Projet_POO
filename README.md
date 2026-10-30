@@ -1,10 +1,14 @@
-# Architecture du projet – UML
+# Game Architecture – UML Class Diagram
 
-## 1. Diagramme UML complet
+## 1. Complete UML Diagram
 
 ```mermaid
 classDiagram
 direction TB
+
+%% =========================
+%% ENTITY
+%% =========================
 
 class Entity {
     <<abstract>>
@@ -21,6 +25,10 @@ class Entity {
     +Defend(Entity& target, Entity& defender, int Damage)
     +CanDead() bool
 }
+
+%% =========================
+%% PLAYER
+%% =========================
 
 class Player {
     <<abstract>>
@@ -48,10 +56,9 @@ class WarriorMage {
     +attackSpecial()
 }
 
-class Swimmer {
-    <<interface>>
-    +Swim() int
-}
+%% =========================
+%% ENEMY
+%% =========================
 
 class Enemy {
     <<abstract>>
@@ -80,31 +87,79 @@ class HeadlessZombie {
     +GetMovement() override
 }
 
+%% =========================
+%% INTERFACES
+%% =========================
+
 class Movement {
-    <<abstract interface>>
+    <<interface>>
     +GetMovement()*
 }
+
+class Swimmer {
+    <<interface>>
+    +Swim()*
+}
+
+%% =========================
+%% UTILITIES
+%% =========================
 
 class Utilities {
     +GetMovement(Entity& entity)
 }
 
+%% =========================
+%% COLLISIONS
+%% =========================
+
 class Collisions {
+    +CheckCollision(Entity& entity) bool
+    +IsBlocked(int row, int column) bool
 }
+
+%% =========================
+%% MAP
+%% =========================
 
 class Map {
     -int rows
     -int columns
     -char grid[][]
+    +InitializeMap()
     +DisplayMap()
     +IsPositionValid(int row, int column) bool
     +CheckCollision(Entity& entity) bool
     +UpdatePosition(Entity& entity)
+    +GetCell(int row, int column) char
 }
+
+%% =========================
+%% GAME SINGLETON
+%% =========================
+
+class Game {
+    <<Singleton>>
+    -static Game* instance
+    -Map map
+    -bool isRunning
+    -Game()
+    +static Game& GetInstance()
+    +Initialize()
+    +Start()
+    +Update()
+    +End()
+    +GetMap() Map&
+}
+
+%% =========================
+%% INHERITANCE
+%% =========================
 
 Entity <|-- Player
 Player <|-- Warrior
 Player <|-- Mage
+
 Warrior <|-- WarriorMage
 Mage <|-- WarriorMage
 
@@ -113,11 +168,20 @@ Enemy <|-- Zombie
 Enemy <|-- ZombieSwimmer
 Enemy <|-- HeadlessZombie
 
+%% =========================
+%% INTERFACE IMPLEMENTATION
+%% =========================
+
 Movement <|.. Zombie
 Movement <|.. ZombieSwimmer
 Movement <|.. HeadlessZombie
 
 Swimmer <|.. ZombieSwimmer
 
-Utilities ..> Movement : uses
-Utilities
+%% =========================
+%% ASSOCIATIONS
+%% =========================
+
+Game "1" *-- "1" Map : owns
+Game ..> Player : manages
+Game ..> Enemy
