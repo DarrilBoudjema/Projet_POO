@@ -1,7 +1,3 @@
-# Game Architecture – UML Class Diagram
-
-## 1. Complete UML Diagram
-
 ```mermaid
 classDiagram
 direction TB
@@ -109,3 +105,22 @@ class Utilities {
 
 %% =========================
 %% COLLISIONS
+%% =========================
+
+class Collisions {
+    +CheckCollision(Entity& entity) bool
+    +IsBlocked(int row, int column) bool
+}
+
+%% =========================
+%% MAP
+%% =========================
+
+class Map {
+    -int rows
+    -int columns
+    -char grid[][]
+    +InitializeMap()
+    +DisplayMap()
+    +IsPositionValid(int row, int column) bool
+    +CheckCollision(Entity& entity)
