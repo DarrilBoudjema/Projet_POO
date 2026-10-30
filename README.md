@@ -17,12 +17,10 @@ class Entity {
     -char avatar
     +int Row
     +int Column
-    +setLife(int life)
-    +getLife() int
     +setAvatar(char avatar)
     +getAvatar() char
-    +Attack(Entity& target, Entity& attacker, int Damage)
-    +Defend(Entity& target, Entity& defender, int Damage)
+    +GetDirections()
+    +Damage(Entity& target, Entity& attacker, int Damage)
     +CanDead() bool
 }
 
@@ -106,82 +104,8 @@ class Swimmer {
 %% =========================
 
 class Utilities {
-    +GetMovement(Entity& entity)
+    +vector position
 }
 
 %% =========================
 %% COLLISIONS
-%% =========================
-
-class Collisions {
-    +CheckCollision(Entity& entity) bool
-    +IsBlocked(int row, int column) bool
-}
-
-%% =========================
-%% MAP
-%% =========================
-
-class Map {
-    -int rows
-    -int columns
-    -char grid[][]
-    +InitializeMap()
-    +DisplayMap()
-    +IsPositionValid(int row, int column) bool
-    +CheckCollision(Entity& entity) bool
-    +UpdatePosition(Entity& entity)
-    +GetCell(int row, int column) char
-}
-
-%% =========================
-%% GAME SINGLETON
-%% =========================
-
-class Game {
-    <<Singleton>>
-    -static Game* instance
-    -Map map
-    -bool isRunning
-    -Game()
-    +static Game& GetInstance()
-    +Initialize()
-    +Start()
-    +Update()
-    +End()
-    +GetMap() Map&
-}
-
-%% =========================
-%% INHERITANCE
-%% =========================
-
-Entity <|-- Player
-Player <|-- Warrior
-Player <|-- Mage
-
-Warrior <|-- WarriorMage
-Mage <|-- WarriorMage
-
-Entity <|-- Enemy
-Enemy <|-- Zombie
-Enemy <|-- ZombieSwimmer
-Enemy <|-- HeadlessZombie
-
-%% =========================
-%% INTERFACE IMPLEMENTATION
-%% =========================
-
-Movement <|.. Zombie
-Movement <|.. ZombieSwimmer
-Movement <|.. HeadlessZombie
-
-Swimmer <|.. ZombieSwimmer
-
-%% =========================
-%% ASSOCIATIONS
-%% =========================
-
-Game "1" *-- "1" Map : owns
-Game ..> Player : manages
-Game ..> Enemy
