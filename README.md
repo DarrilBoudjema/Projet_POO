@@ -1,3 +1,7 @@
+# Game Architecture – UML Class Diagram
+
+## Complete UML Diagram
+
 ```mermaid
 classDiagram
 direction TB
@@ -8,9 +12,9 @@ direction TB
 
 class Entity {
     <<abstract>>
-    -int life = 1
-    -int Damage = 1
-    -char avatar
+    #int life = 1
+    #int damage = 1
+    #char avatar
     +int Row
     +int Column
     +setAvatar(char avatar)
@@ -30,9 +34,6 @@ class Player {
 
 class Warrior {
     -char avatar = 'W'
-    -int life = 5
-    -int Damage = 1
-    +SetLife(int lifeWarrior)
     +Attack()
     +CanKillWhenCollid(int Damage, Entity& Ennemies, Collisions[] collid)
 }
@@ -45,8 +46,9 @@ class Mage {
 
 class WarriorMage {
     -char avatar = 'G'
-    -int life = 5
     -int wmAttackGrille[4][4]
+    -int specialGrille[3][3]
+    +Attack()
     +attackSpecial()
 }
 
@@ -56,15 +58,13 @@ class WarriorMage {
 
 class Enemy {
     <<abstract>>
-    +Enum TypeEnemy
-    +int Damage = 1
+    +TypeEnemy typeEnemy
     +Movement()
     +IsCollisionBlocked() bool
 }
 
 class Zombie {
     -char avatar = 'Z'
-    -int Damage = 1
     +Movement() override
     +GetMovement() override
 }
@@ -79,6 +79,17 @@ class ZombieSwimmer {
 class HeadlessZombie {
     +Movement() override
     +GetMovement() override
+}
+
+%% =========================
+%% ENUM
+%% =========================
+
+class TypeEnemy {
+    <<enumeration>>
+    Zombie
+    ZombieSwimmer
+    HeadlessZombie
 }
 
 %% =========================
@@ -100,7 +111,7 @@ class Swimmer {
 %% =========================
 
 class Utilities {
-    +vector position
+    +Vector2 position
 }
 
 %% =========================
@@ -123,4 +134,60 @@ class Map {
     +InitializeMap()
     +DisplayMap()
     +IsPositionValid(int row, int column) bool
-    +CheckCollision(Entity& entity)
+    +UpdatePosition(Entity& entity)
+    +GetCell(int row, int column) char
+}
+
+%% =========================
+%% GAME SINGLETON
+%% =========================
+
+class Game {
+    <<Singleton>>
+    -static Game* instance
+    -Map map
+    -bool isRunning
+    -Game()
+    +static Game& GetInstance()
+    +Initialize()
+    +Start()
+    +Update()
+    +End()
+    +GetMap() Map&
+}
+
+%% =========================
+%% INHERITANCE
+%% =========================
+
+Entity <|-- Player
+Player <|-- Warrior
+Player <|-- Mage
+Player <|-- WarriorMage
+
+Entity <|-- Enemy
+Enemy <|-- Zombie
+Enemy <|-- ZombieSwimmer
+Enemy <|-- HeadlessZombie
+
+%% =========================
+%% INTERFACE IMPLEMENTATION
+%% =========================
+
+Movement <|.. Zombie
+Movement <|.. ZombieSwimmer
+Movement <|.. HeadlessZombie
+
+Swimmer <|.. ZombieSwimmer
+
+%% =========================
+%% ASSOCIATIONS
+%% =========================
+
+Enemy --> TypeEnemy : uses
+Game "1" *-- "1" Map : owns
+Game ..> Player : manages
+Game ..> Enemy : manages
+Map ..> Collisions : uses
+Entity ..> Utilities : uses
+```
