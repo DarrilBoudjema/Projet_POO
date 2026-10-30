@@ -20,7 +20,7 @@ class Entity {
     +setAvatar(char avatar)
     +getAvatar() char
     +GetDirections()
-    +Damage(Entity& target, Entity& attacker, int Damage)
+    +Damage(Entity& attacker, int damage)
     +CanDead() bool
 }
 
@@ -39,15 +39,13 @@ class Warrior {
 }
 
 class Mage {
-    -char avatar = 'M'
-    -int specialGrille[3][3]
-    +attackSpecial(int specialGrille[3][3])
+    -int[][] specialGrille
+    +attackSpecial(int[][] specialGrille)
 }
 
 class WarriorMage {
     -char avatar = 'G'
-    -int wmAttackGrille[4][4]
-    -int specialGrille[3][3]
+    -int[][] wmAttackGrille
     +Attack()
     +attackSpecial()
 }
@@ -119,8 +117,9 @@ class Utilities {
 %% =========================
 
 class Collisions {
-    +CheckCollision(Entity& entity) bool
-    +IsBlocked(int row, int column) bool
+    +CheckCollision(Entity& entity, Map& map) bool
+    +CheckEntityCollision(Entity& entity, Entity& other) bool
+    +IsBlocked(int row, int column, Map& map) bool
 }
 
 %% =========================
@@ -130,12 +129,12 @@ class Collisions {
 class Map {
     -int rows
     -int columns
-    -char grid[][]
+    -int[][] grid
     +InitializeMap()
     +DisplayMap()
     +IsPositionValid(int row, int column) bool
     +UpdatePosition(Entity& entity)
-    +GetCell(int row, int column) char
+    +GetCell(int row, int column) int
 }
 
 %% =========================
@@ -163,7 +162,9 @@ class Game {
 Entity <|-- Player
 Player <|-- Warrior
 Player <|-- Mage
-Player <|-- WarriorMage
+
+Warrior <|-- WarriorMage
+Mage <|-- WarriorMage
 
 Entity <|-- Enemy
 Enemy <|-- Zombie
@@ -185,9 +186,38 @@ Swimmer <|.. ZombieSwimmer
 %% =========================
 
 Enemy --> TypeEnemy : uses
+
 Game "1" *-- "1" Map : owns
+
 Game ..> Player : manages
 Game ..> Enemy : manages
-Map ..> Collisions : uses
+
+Collisions ..> Entity : checks
+Collisions ..> Map : checks
 Entity ..> Utilities : uses
+
+note for WarriorMage "Multiple inheritance.\nWarrior and Mage use virtual inheritance from Player in C++."
+
+note for Collisions "Centralizes collision detection.\nMap handles terrain and boundaries.\nEnemy defines its collision behavior."
 ```
+
+## 3. Explication de la classe Collisions
+
+La classe `Collisions` sert de gestionnaire central des collisions.
+
+| Classe | Responsabilité |
+|---|---|
+| Entity | Contient la position et les caractéristiques communes |
+| Enemy | Définit le comportement et les règles propres aux ennemis |
+| Map | Gère les cases, les obstacles et les limites |
+| Collisions | Vérifie les collisions entre entités et avec la carte |
+
+Exemple de fonctionnement :
+
+1. Une entité souhaite se déplacer.
+2. `Map` fournit les informations sur la case ciblée.
+3. `Collisions` vérifie si le déplacement est autorisé.
+4. Si la case est libre, `Map` met à jour la position.
+5. Si une collision est détectée, le déplacement est refusé ou traité selon le type d'entité.
+
+**Important :** `IsCollisionBlocked()` dans `Enemy` doit uniquement définir le comportement de collision propre à l'ennemi. La détection effective reste centralisée dans `Collisions`.
