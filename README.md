@@ -15,8 +15,6 @@ class Entity {
     #int life = 1
     #int damage = 1
     #char avatar
-    +int Row
-    +int Column
     +setAvatar(char avatar)
     +getAvatar() char
     +GetDirections()
@@ -185,6 +183,8 @@ Swimmer <|.. ZombieSwimmer
 %% ASSOCIATIONS
 %% =========================
 
+Entity "1" *-- "1" Utilities : owns position
+
 Enemy --> TypeEnemy : uses
 
 Game "1" *-- "1" Map : owns
@@ -194,7 +194,6 @@ Game ..> Enemy : manages
 
 Collisions ..> Entity : checks
 Collisions ..> Map : checks
-Entity ..> Utilities : uses
 
 note for WarriorMage "Multiple inheritance.\nWarrior and Mage use virtual inheritance from Player in C++."
 
