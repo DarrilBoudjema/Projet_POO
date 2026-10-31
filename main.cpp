@@ -1,5 +1,10 @@
 #include <iostream>
 
 int main() {
-	std::cout << "Hello World" << std::endl;
+    /* Exemple pris du cours
+    Game* game = Game::GetInstance();
+    game->Run();
+    // on oublie pas de delete dans le destructeur
+    return 0;
+    */
 }
