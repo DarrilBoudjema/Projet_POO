@@ -10,17 +10,19 @@ private:
 
 public:
 
-	void setAvatar(char newavatar) {
-		avatar = newavatar;
-	}
+	Entity() {};
+	void setAvatar(char newavatar);
 
-	char getAvatar() {
-		return avatar;
-	}
+	char getAvatar();
 
-	// GetDirections()
+	void Move();
 
+	void Damage(Entity& attacker, int damage);
 
+	bool isAlive();
 
+	virtual void OnUpdate() = 0;
+
+	virtual void onCollision() = 0;
 };
 

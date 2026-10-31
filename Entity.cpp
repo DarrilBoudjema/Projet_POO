@@ -10,12 +10,17 @@ char Entity::getAvatar()
 	return avatar;
 }
 
+void Entity::Move()
+{
+
+}
+
 void Entity::Damage(Entity& attacker, int damage)
 {
 	attacker.life - damage;
 }
 
-bool Entity::CanDead()
+bool Entity::isAlive()
 {
 	if (life < 0) {
 		life = 0;
