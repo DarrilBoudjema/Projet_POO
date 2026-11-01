@@ -12,5 +12,4 @@ Vector2 Player::getDirections(int)
 
 void Player::OnUpdate()
 {
-
 }

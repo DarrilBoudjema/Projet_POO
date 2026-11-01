@@ -26,7 +26,6 @@ bool Entity::isAlive()
 		life = 0;
 		return true;
 	}
-
 	return false;
 }
 
