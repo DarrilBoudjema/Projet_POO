@@ -9,7 +9,6 @@ private:
 
 
 public:
-
 	Entity() {};
 	void setAvatar(char newavatar);
 

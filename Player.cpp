@@ -4,13 +4,12 @@ int Player::readPlayerInputs()
 {
 	return 0;
 }
-
+/*
 Vector2 Player::getDirections(int)
 {
-	return;
+	int test;
 }
-
+*/
 void Player::OnUpdate()
 {
-
 }

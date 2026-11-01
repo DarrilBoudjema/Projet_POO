@@ -1,34 +1,15 @@
 #pragma once
 
-class Vector2 {
+#pragma once
 
-private :
-	int x;
-	int y;
+struct Vector2
+{
+    int x = 0;
+    int y = 0;
 
-public:
-	Vector2(int x, int y) : x(x), y(y) {}
+    Vector2(int x = 0, int y = 0) : x(x), y(y) {}
 
-	Vector2 operator+(const Vector2& other) const {
-		return Vector2(x + other.x, y+ other.y);
-	}
-
-	Vector2 operator-(const Vector2& other) const {
-		return Vector2(x - other.x, y - other.y);
-	}
-
-	Vector2& operator=(const Vector2& other) {
-		if (this != &other) {   
-			x = other.x;
-			y = other.y;
-		}
-		return *this;
-	}
-
-	bool operator==(const Vector2& other) const {
-		return x == other.x && y == other.y;
-	}
-
-	int GetX() const { return x; }
-	int GetY() const { return y; }
+    Vector2 operator+(const Vector2& o) const { return Vector2(x + o.x, y + o.y); }
+    Vector2 operator-(const Vector2& o) const { return Vector2(x - o.x, y - o.y); }
+    bool operator==(const Vector2& o) const { return x == o.x && y == o.y; }
 };
