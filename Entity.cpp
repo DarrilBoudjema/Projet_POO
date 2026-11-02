@@ -10,8 +10,9 @@ char Entity::getAvatar()
 	return avatar;
 }
 
-void Entity::Move()
+void Entity::Move(Vector2 direction)
 {
+	position = position + direction;
 
 }
 
