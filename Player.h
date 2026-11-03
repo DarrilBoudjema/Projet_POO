@@ -9,5 +9,5 @@ public:
     int readPlayerInputs();
     Vector2 getDirections(int Touch);
     void OnUpdate() override;
-    void OnCollision() override;
+    void OnCollision(Vector2 playerPos) override;
 };

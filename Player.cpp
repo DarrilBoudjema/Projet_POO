@@ -1,6 +1,10 @@
 #include "Player.h"
 #include "Vector2.h"
+#include "Game.h"
+#include "Map.h"
+#include <string>
 #include <iostream>
+#include<vector>
 #include <conio.h>
 
 int Player::readPlayerInputs()
@@ -31,11 +35,16 @@ Vector2 Player::getDirections(int Touch)
 
 void Player::OnUpdate()
 {
+   
     int input = readPlayerInputs();
     Vector2 dir = getDirections(input);
     Move(dir);
 }
 
-void Player::OnCollision()
+
+void Player::OnCollision(Vector2 playerPos)
 {
+     
+        
+    
 }

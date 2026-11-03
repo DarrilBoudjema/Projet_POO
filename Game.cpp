@@ -22,18 +22,53 @@ void Game::Run()
     bool running = true;
     while (running) {
         system("cls"); // #include <cstdlib>
-        if (player != nullptr) {
-            player->OnUpdate();
-        }
-        Render();
 
-        std::string input;
-        std::getline(std::cin, input);
-        if (!input.empty() && input[0] == 'x')
-            running = false;
+        if (player != nullptr) {
+            // 1. On récupère la touche et la direction voulue
+            int input = player->readPlayerInputs();
+            char touch = (char)input;
+
+            if (touch == 'x' || touch == 'X') {
+                running = false;
+                continue;
+            }
+
+            Vector2 dir = player->getDirections(input);
+            Vector2 nextPos = player->getPosition() + dir;
+
+            // 2. On vérifie que la position future est bien dans la carte
+            if (nextPos.x >= 0 && nextPos.x < currentMap->width &&
+                nextPos.y >= 0 && nextPos.y < currentMap->height)
+            {
+                const TileInfo& tileInfo = currentMap->GetTileInfo(nextPos.x, nextPos.y);
+
+                // 3. GESTION DES COLLISIONS :
+                if (tileInfo.symbol == 'A') {
+                    std::cout << "Collision avec une montagne 'A' !" << std::endl;
+                    // AUCUN player->Move(dir) ici : le joueur reste bloqué !
+                }
+                else if (tileInfo.symbol == '~') {
+                    std::cout << "Collision avec de l'eau '~' !" << std::endl;
+                    // AUCUN player->Move(dir) ici : le joueur reste bloqué !
+                }
+                else if (tileInfo.symbol == 'E') {
+                    std::cout << "Vous avez atteint la sortie 'E' !" << std::endl;
+                    player->Move(dir); // Autorisé
+                }
+                else if (tileInfo.symbol == '.') {
+                    player->Move(dir); // Sol normal autorisé
+                }
+            }
+        }
+            Render();
+
+            std::string exitInput;
+            std::getline(std::cin, exitInput);
+            if (!exitInput.empty() && exitInput[0] == 'x')
+                running = false;
+        }
     }
 
-}
 
 void Game::Render() const {
     std::vector<std::string> screen(currentMap->height,

@@ -29,5 +29,5 @@ public:
 
 	virtual void OnUpdate() = 0;
 
-	virtual void OnCollision() = 0;
+	virtual void OnCollision(Vector2 playerPos) = 0;
 };

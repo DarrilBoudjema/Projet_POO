@@ -12,7 +12,10 @@ char Entity::getAvatar()
 
 void Entity::Move(Vector2 direction)
 {
+	
 	position = position + direction;
+
+
 }
 
 
