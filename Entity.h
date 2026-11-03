@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+
 class Entity
 {
 
@@ -11,6 +12,7 @@ private:
 
 
 public:
+
 	Entity() {};
 	void setAvatar(char newavatar);
 
@@ -18,11 +20,14 @@ public:
 
 	void Move(Vector2 direction);
 
+
 	void Damage(Entity& attacker, int damage);
 
 	bool isAlive();
 
+	Vector2 getPosition() const { return position; }
+
 	virtual void OnUpdate() = 0;
 
-	virtual void onCollision() = 0;
+	virtual void OnCollision() = 0;
 };
