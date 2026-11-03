@@ -9,4 +9,3 @@ public:
 	Vector2 getDirections(int);
 	virtual void OnUpdate() = 0;
 };
-
