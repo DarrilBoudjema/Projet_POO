@@ -1,12 +1,11 @@
 #pragma once
-#include "Entity.h"
 #include "Vector2.h"
-
-class Player : public Entity
+#include "Entity.h"
+class Player
 {
+
 public:
-    int readPlayerInputs();
-    Vector2 getDirections(int Touch);
-    void OnUpdate() override;
-    void OnCollision() override; 
+	int readPlayerInputs();
+	Vector2 getDirections(int);
+	virtual void OnUpdate() = 0;
 };

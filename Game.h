@@ -1,7 +1,6 @@
 #pragma once
 #include "Entity.h"
 #include "Map.h"
-#include "Player.h"
 class Game
 {
 public:
@@ -20,7 +19,6 @@ private:
     ~Game() { delete currentMap; }
 
     Map* currentMap = nullptr;
-    Player* player = nullptr;
     //Entity player;
     //std::vector<Entity> enemies;
 
