@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include "Map.h"
 
 class Entity
 {
@@ -29,5 +30,7 @@ public:
 
 	virtual void OnUpdate() = 0;
 
-	virtual void OnCollision(Vector2 playerPos) = 0;
+	virtual void OnCollision(Vector2 playerPos, Map* currentMap, std::vector<std::string>& screen, const TileInfo& tileInfos, Vector2 dir, Vector2 player) = 0;
+
+	bool isColliding(Vector2 playerPos, Map* currentMap, std::vector<std::string>& screen, const TileInfo& tileInfos, Vector2& dir, Vector2& player);
 };

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Player.h"
+#include "Entity.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -18,7 +19,7 @@ void Game::Run()
     currentMap->LoadFromFile("level/level1.txt");
     player = new Player();
     player->setAvatar('H');
-    
+
     bool running = true;
     while (running) {
         system("cls"); // #include <cstdlib>
@@ -40,34 +41,28 @@ void Game::Run()
             if (nextPos.x >= 0 && nextPos.x < currentMap->width &&
                 nextPos.y >= 0 && nextPos.y < currentMap->height)
             {
-                const TileInfo& tileInfo = currentMap->GetTileInfo(nextPos.x, nextPos.y);
+                const TileInfo& tileInfos = currentMap->GetTileInfo(nextPos.x, nextPos.y);
+                
+                if (tileInfos.symbol == '.') {
+                    player->Move(dir); // Sol normal autorisé  
+                }
+                if (tileInfos.symbol == 'E') {                                     // Pour obtenir les collisions avec les ennemis il fait écrire ici 
+                    system("cls");
+                    std::cout << "Vous avez atteint la sortie !" << std::endl;
+                  std :: cin.ignore();
+                    std :: cin.get();
 
-                // 3. GESTION DES COLLISIONS :
-                if (tileInfo.symbol == 'A') {
-                    std::cout << "Collision avec une montagne 'A' !" << std::endl;
-                    // AUCUN player->Move(dir) ici : le joueur reste bloqué !
-                }
-                else if (tileInfo.symbol == '~') {
-                    std::cout << "Collision avec de l'eau '~' !" << std::endl;
-                    // AUCUN player->Move(dir) ici : le joueur reste bloqué !
-                }
-                else if (tileInfo.symbol == 'E') {
-                    std::cout << "Vous avez atteint la sortie 'E' !" << std::endl;
-                    player->Move(dir); // Autorisé
-                }
-                else if (tileInfo.symbol == '.') {
-                    player->Move(dir); // Sol normal autorisé
                 }
             }
         }
-            Render();
+        Render();
 
-            std::string exitInput;
-            std::getline(std::cin, exitInput);
-            if (!exitInput.empty() && exitInput[0] == 'x')
-                running = false;
-        }
+        std::string exitInput;
+        std::getline(std::cin, exitInput);
+        if (!exitInput.empty() && exitInput[0] == 'x')
+            running = false;
     }
+}
 
 
 void Game::Render() const {
@@ -95,3 +90,4 @@ void Game::DestroyInstance() {
     delete instance;              // appelle ~Game(), qui delete currentMap
     instance = nullptr;
 }
+
