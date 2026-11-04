@@ -46,7 +46,7 @@ void Game::Run()
                 if (tileInfos.symbol == '.') {
                     player->Move(dir); // Sol normal autorisé  
                 }
-                if (tileInfos.symbol == 'E') {                                     // Pour obtenir les collisions avec les ennemis il fait écrire ici 
+                if (tileInfos.symbol == 'E') {                                     // Pour obtenir les collisi ons avec les ennemis il fait écrire ici 
                     system("cls");
                     std::cout << "Vous avez atteint la sortie !" << std::endl;
                   std :: cin.ignore();
