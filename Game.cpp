@@ -48,25 +48,34 @@ void Game::Run()
                     player->Move(dir); // Sol normal autorisé  
                 }
                 if (tileInfos.symbol == 'X') {
-                    std::cout << "Damage -1" << std::endl;
-
-
-                }
-                if (tileInfos.symbol == 'E') {                                     // Pour obtenir les collisi ons avec les ennemis il fait écrire ici 
-                    system("cls");
-                    std::cout << "Vous avez atteint la sortie !" << std::endl;
+                    std::cout << "Vous avez rencontré un ennemi !" << std::endl;
+                    void Special_Attack(Map * currentMap, Mage & attacker, const TileInfo & tileInfos, int damage, int Touch, int& nextPos, int& position);
+                    std::cout << "Appuyez sur une touche pour attaquer..." << std::endl;
                     std::cin.ignore();
-                    std::cin.get();
 
-                  
+                    if (tileInfos.symbol == 'X') {
+                        player->Move(dir);
+                        // Sol normal autorisé  
+                    }
+
+
+
+                    if (tileInfos.symbol == 'E') {                                     // Pour obtenir les collisi ons avec les ennemis il fait écrire ici 
+                        system("cls");
+                        std::cout << "Vous avez atteint la sortie !" << std::endl;
+                        std::cin.ignore();
+                        std::cin.get();
+
+
+                    }
                 }
-            }
-            Render();
+                Render();
 
-            std::string exitInput;
-            std::getline(std::cin, exitInput);
-            if (!exitInput.empty() && exitInput[0] == 'x')
-                running = false;
+                std::string exitInput;
+                std::getline(std::cin, exitInput);
+                if (!exitInput.empty() && exitInput[0] == 'x')
+                    running = false;
+            }
         }
     }
 }

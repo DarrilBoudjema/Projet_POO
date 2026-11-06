@@ -35,7 +35,7 @@ public:
 
 	virtual void OnCollision(Vector2 playerPos, Map* currentMap, std::vector<std::string>& screen, const TileInfo& tileInfos, Vector2 dir, Vector2 player) = 0;
 
-	bool isColliding(Vector2 playerPos, Map* currentMap, std::vector<std::string>& screen, const TileInfo& tileInfos, Vector2& dir, Vector2& player);
+	bool isColliding(Vector2 playerPos, Map* currentMap, std::vector<std::string>& screen, const TileInfo& tileInfos, Vector2& dir, Vector2& player, Warrior& attacker, int damage, int& nextPos);
 };
 
 
