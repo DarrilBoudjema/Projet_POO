@@ -9,6 +9,7 @@ Map::Map() {
     tileinfos[(int)E_CellType::Water] = { '~', false, true };
     tileinfos[(int)E_CellType::Mountain] = { 'A', false, false };
     tileinfos[(int)E_CellType::Exit] = { 'E', true,  false };
+    tileinfos[(int)E_CellType::Enemy] = { 'X', false,  false };
 }
 
 void Map::LoadFromFile(const char* path) {
@@ -31,4 +32,5 @@ void Map::LoadFromFile(const char* path) {
                 if (tileinfos[t].symbol == lines[y][x]) type = t;
             cells[Get1DCell(x, y)] = type;
         }
+
 }
