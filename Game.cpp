@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Entity.h"
+#include"Mage.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -42,25 +43,31 @@ void Game::Run()
                 nextPos.y >= 0 && nextPos.y < currentMap->height)
             {
                 const TileInfo& tileInfos = currentMap->GetTileInfo(nextPos.x, nextPos.y);
-                
+
                 if (tileInfos.symbol == '.') {
                     player->Move(dir); // Sol normal autorisé  
+                }
+                if (tileInfos.symbol == 'X') {
+                    std::cout << "Damage -1" << std::endl;
+
+
                 }
                 if (tileInfos.symbol == 'E') {                                     // Pour obtenir les collisi ons avec les ennemis il fait écrire ici 
                     system("cls");
                     std::cout << "Vous avez atteint la sortie !" << std::endl;
-                  std :: cin.ignore();
-                    std :: cin.get();
+                    std::cin.ignore();
+                    std::cin.get();
 
+                  
                 }
             }
-        }
-        Render();
+            Render();
 
-        std::string exitInput;
-        std::getline(std::cin, exitInput);
-        if (!exitInput.empty() && exitInput[0] == 'x')
-            running = false;
+            std::string exitInput;
+            std::getline(std::cin, exitInput);
+            if (!exitInput.empty() && exitInput[0] == 'x')
+                running = false;
+        }
     }
 }
 
