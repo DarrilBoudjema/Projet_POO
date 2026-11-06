@@ -31,7 +31,7 @@ bool Warrior::isAlive()
 	return false;
 }
 
-bool Warrior::isColliding(Vector2 playerPos, Map* currentMap, std::vector<std::string>& screen, const TileInfo& tileInfos, Vector2& dir, Vector2& player)
+bool Warrior::isColliding(Vector2 playerPos, Map* currentMap, std::vector<std::string>& screen, const TileInfo& tileInfos, Vector2& dir, Vector2& player, Warrior& attacker, int damage, int& nextPos)
 {
 	// Implementation for collision detection
 	return false;

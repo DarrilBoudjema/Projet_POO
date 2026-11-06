@@ -37,16 +37,16 @@ bool Mage::isAlive()
 	return false;
 }
 
-bool Mage::isColliding(Vector2 playerPos, Map* currentMap, std::vector<std::string>& screen, const TileInfo& tileInfos, Vector2& dir, Vector2& player)
+bool Mage::isColliding(Vector2 playerPos, Map* currentMap, std::vector<std::string>& screen, const TileInfo& tileInfos, Vector2& dir, Vector2& player, int damage, int& nextPos)
 {
-	// Implementation for collision detection
+	
 	return false;
 }
 
-void Mage::Special_Attack(Map* currentMap,Mage& attacker, const TileInfo& tileInfos, int damage, int Touch, int& nextPos)
+void Mage::Special_Attack(Map* currentMap,Mage& attacker, const TileInfo& tileInfos, int damage, int Touch, int& nextPos,int& position)
 {
 	
-	nextPos = (int)E_CellType::Ground;
+	nextPos = (int)E_CellType::Ground ;
 
 	char touch = (char)Touch;
 	std::cin >> Touch;
