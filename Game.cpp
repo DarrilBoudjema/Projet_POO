@@ -50,7 +50,7 @@ void Game::Run()
                 if (tileInfos.symbol == 'X') {
                     std::cout << "Vous avez rencontré un ennemi !" << std::endl;
                     void Special_Attack(Map * currentMap, Mage & attacker, const TileInfo & tileInfos, int damage, int Touch, int& nextPos, int& position);
-                    std::cout << "Appuyez sur une touche pour attaquer..." << std::endl;
+                    std::cout << "Appuyez sur une touche " << std::endl;
                     std::cin.ignore();
 
                     
