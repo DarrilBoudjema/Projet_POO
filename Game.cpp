@@ -53,6 +53,7 @@ void Game::Run()
                     std::cout << "Appuyez sur une touche pour attaquer..." << std::endl;
                     std::cin.ignore();
 
+                    f
                     if (tileInfos.symbol == 'X') {
                         player->Move(dir);
                         // Sol normal autorisé  
