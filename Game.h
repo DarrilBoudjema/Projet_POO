@@ -11,7 +11,7 @@ public:
     static Game& Get() { static Game instance; return instance; }
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;
-
+   
     void Run();
     void Render() const;
 
@@ -21,6 +21,7 @@ private:
 
     Map* currentMap = nullptr;
     Player* player = nullptr;
+	
     //Entity player;
     //std::vector<Entity> enemies;
 

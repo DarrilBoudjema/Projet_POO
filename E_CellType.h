@@ -6,5 +6,6 @@ enum class E_CellType {
     Water,
     Mountain,
     Exit,
+    Enemy,
     Count
 };

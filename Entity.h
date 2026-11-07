@@ -23,6 +23,8 @@ public:
 
 
 	void Damage(Entity& attacker, int damage);
+	
+
 
 	bool isAlive();
 

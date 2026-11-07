@@ -53,12 +53,12 @@ void Player::OnCollision(Vector2 playerPos, Map* currentMap, std::vector<std::st
     }
 }
 
+bool Player::isColliding(Vector2 playerPos, Map* currentMap, std::vector<std::string>& screen, const TileInfo& tileInfos, Vector2& dir, Vector2& player)
+{
+    // Implementation for collision detection
+    return false;
+}
 
-	
-
-            
-    
-   
 
 
     

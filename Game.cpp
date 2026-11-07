@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Entity.h"
+#include"Mage.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -42,25 +43,41 @@ void Game::Run()
                 nextPos.y >= 0 && nextPos.y < currentMap->height)
             {
                 const TileInfo& tileInfos = currentMap->GetTileInfo(nextPos.x, nextPos.y);
-                
+
                 if (tileInfos.symbol == '.') {
                     player->Move(dir); // Sol normal autorisé  
                 }
-                if (tileInfos.symbol == 'E') {                                     // Pour obtenir les collisi ons avec les ennemis il fait écrire ici 
-                    system("cls");
-                    std::cout << "Vous avez atteint la sortie !" << std::endl;
-                  std :: cin.ignore();
-                    std :: cin.get();
+                if (tileInfos.symbol == 'X') {
+                    std::cout << "Vous avez rencontré un ennemi !" << std::endl;
+                    void Special_Attack(Map * currentMap, Mage & attacker, const TileInfo & tileInfos, int damage, int Touch, int& nextPos, int& position);
+                    std::cout << "Appuyez sur une touche " << std::endl;
+                    std::cin.ignore();
 
+                    
+                    if (tileInfos.symbol == 'X') {
+                        player->Move(dir);
+                        // Sol normal autorisé  
+                    }
+
+
+
+                    if (tileInfos.symbol == 'E') {                                     // Pour obtenir les collisi ons avec les ennemis il fait écrire ici 
+                        system("cls");
+                        std::cout << "Vous avez atteint la sortie !" << std::endl;
+                        std::cin.ignore();
+                        std::cin.get();
+
+
+                    }
                 }
+                Render();
+
+                std::string exitInput;
+                std::getline(std::cin, exitInput);
+                if (!exitInput.empty() && exitInput[0] == 'x')
+                    running = false;
             }
         }
-        Render();
-
-        std::string exitInput;
-        std::getline(std::cin, exitInput);
-        if (!exitInput.empty() && exitInput[0] == 'x')
-            running = false;
     }
 }
 
